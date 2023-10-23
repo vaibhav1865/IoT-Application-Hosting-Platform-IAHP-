@@ -1,0 +1,8 @@
+{
+  "Node Manager": {
+    "topic_name": "topic_node_manager_health"
+  },
+  "Notification Manager": {
+    "topic_name": "topic_notification_health"
+  }
+}

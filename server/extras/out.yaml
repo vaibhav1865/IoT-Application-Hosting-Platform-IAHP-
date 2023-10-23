@@ -1,0 +1,4 @@
+app_name: myapp1
+schedule:
+  time: "50"
+version: "1.0"
