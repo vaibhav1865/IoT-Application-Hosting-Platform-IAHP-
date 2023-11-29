@@ -76,7 +76,6 @@ Its primary mission is to assist businesses in deploying and overseeing large di
 - Flexible **Configurations** in XML or JSON.
 
 ### **Actors**
-
 - Devices process and act based on platform data.
 
 ## Non-Functional Requirements
@@ -137,10 +136,9 @@ The project is organized as follows:
   - **`client/`**
     - `src/`: Client-side source files for the UI and interactions.
   - **`server/`**
-    - `ApplicationManager/`: Manages the lifecycle of applications and services.
+    - `Application-Service-Manager/`: Manages and verifies the applications and services.
     - `Bootstrap/`: Initial setup and configurations for the platform.
     - `Logger/`: Logging utilities for tracking system activities.
-    - `analytics/`: Provides data analytics and insights.
     - `api-manager/`: Manages the API endpoints and routing.
     - `api/`: API endpoints and related functionality.
     - `docs/`: Documentation and guides for the platform.
@@ -149,63 +147,51 @@ The project is organized as follows:
     - `monitoring-service/`: Monitors the health and performance of services.
     - `node-manager/`: Handles node-related operations and lifecycle.
     - `notification-manager/`: Manages notifications and alerting.
-    - `schema/`: Database schema and related utilities.
-    - `sensor-manager/`: Manages sensor integrations, data collection, and interactions.
 
 ## Microservices
 
-### 1. Monitoring Service
+### **1. API Gateway**
 
-- Monitors performance metrics of platform services.
-- Checks the `health status of each module` on each interval.
-- Sends out notifications on failures and provisions new instances.
-- Offers insights on usage trends and resource consumption.
+- **Function**: Serves as the entry point for all incoming requests, handling authentication, request routing, and load balancing.
+- **Key Features**: Token-based authentication, rate limiting, and SSL termination.
 
-### 2. Load Balancing Service
+### **2. Application Service Manager**
 
-- Uniformly distributes loads for optimal application deployment.
-- Monitors CPU/RAM usage and can request additional nodes during high demand.
+- **Function**: Manages the initial processing of application deployments, including verification and storage.
+- **Key Features**: Verifies **`app.zip`** content, integrates with Azure Blob for storage, and interfaces with Kafka for message passing.
 
-### 3. Node/VM Manager and Deployment Manager
+### **3. Application Lifecycle Manager**
 
-- Initializes nodes with set configurations and monitors their statuses.
-- Handles resource allocation for service initialization and manages post-lifecycle resource deallocation.
+- **Function**: Handles the entire lifecycle of hosted applications, from deployment to maintenance and scaling.
+- **Key Features**: Coordinates with the Deployer for application setup and status updates.
 
-### 4. API Manager and Communication Manager
+### **4. Deployer**
 
-- Manages and routes API access, sets rate limits, and assists developers in API selection.
-- Manages data interchange between devices and components, ensuring seamless communication.
+- **Function**: Responsible for the physical deployment of applications, including environment setup and execution.
+- **Key Features**: Communicates with Node Manager for resource allocation and updates AppDB with deployment status.
 
-### 5. Deployment Manager and Bootstrap Service
+### **5. Scheduler**
 
-- Manages application `setups and tracks deployment statuses`.
-- Initiates platform setup by identifying necessary files and starting required services.
+- **Function**: Manages the scheduling of application deployments based on predefined schedules.
+- **Key Features**: Interfaces with the Application Service Manager and Deployer via Kafka topics.
 
-### 6. Sensor Manager
+### **6. Node Manager**
 
-- Manages sensor interactions including registration and `live data streaming`.
-- Incorporates Logger for `traffic monitoring and an API Gateway for handling service requests.
+- **Function**: Allocates and manages nodes for application deployment.
+- **Key Features**: Efficient resource management and node allocation for Deployer.
 
-### 7. Notification Service
+### 7. **Bootstrap Service**
 
-- Manages and dispatches notifications to users.
-- Integrates with `Kafka` for message processing.
-- Utilizes email credentials and configuration files.
-- Communicates with an `SMTP server` for email-based notifications.
-
-### 8. Analytics Service
-
-- Processes and analyzes sensor data.
-- Consists of modules like `Analytics.py` for processing and `graphs.py` for visualization.
-- Manages user data and sensor metadata through respective databases.
-- Provides insights to the User Dashboard.
-
-### 9. Logger Service
-
-- Responsible for logging system events and messages.
-- Integrates with Kafka to consume log messages from the `topic_logger` topic.
-- Logs are stored in the `Logger DB`.
-- Provides an interface for users or admins to view logs.
+- **Functionality :** The Bootstrap Service is a critical component responsible for initializing and configuring the other components of the Application Hosting Platform.It acts as a setup script or service that activates and sets up each component with the necessary configurations and interdependencies.
+- **Key Features**
+    - **Automatically starts** up all the core components of the platform in the correct order ,
+    - **Configuration Management** Sets up each component with predefined or dynamic configurations.
+    - **Dependency Checks**: Ensures that all dependencies among various services are resolved before they are made operational.
+    - **Health Checks**: Performs initial health checks to verify that each component is functioning correctly after startup.
+- **Working**
+    - Upon activation by the Platform Administrator, the Bootstrap Service sequentially starts each component, such as the Application Service Manager, Deployer, and others.
+    - It ensures that the necessary configurations are applied, and inter-component communications pathways (like Kafka topics) are established.
+    - The service also conducts initial checks to confirm that each component is running and ready to perform its designated role.
 
 ## Communication Diagram
 
