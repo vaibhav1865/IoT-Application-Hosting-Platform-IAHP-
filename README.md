@@ -13,12 +13,11 @@ The IoT-Application-Hosting-Platform (IAHP) streamlines the process for users to
 6. [Folder Structure](#folder-structure)
 7. [Microservices Details](#microservices-details)
 8. [Demo Video](#demo-video)
-9. [Communication Diagram](#communication-diagram)
-10. [Architecture Diagram](#architecture-diagram)
-11. [Future Scope](#future-scope)
-12. [Getting Started](#getting-started)
-13. [License](#license)
-14. [Contributing](#contributing)
+9. [Architecture Diagram](#architecture-diagram)
+10. [Future Scope](#future-scope)
+11. [Getting Started](#getting-started)
+12. [License](#license)
+13. [Contributing](#contributing)
 
 ## Introduction
 
@@ -193,31 +192,18 @@ The project is organized as follows:
     - It ensures that the necessary configurations are applied, and inter-component communications pathways (like Kafka topics) are established.
     - The service also conducts initial checks to confirm that each component is running and ready to perform its designated role.
 
-## Communication Diagram
-
-The communication diagram provides a clear representation of the information flow within the Distributed IoT Application Platform. It emphasizes the interactions between various components and services to ensure smooth data transmission and processing.
-
-![Communication Diagram](https://github.com/bhanujggandhi/iot-platform-project/blob/main/documentation/artifacts/Communication%20Model.jpg)
 
 ## Architecture Diagram
 
 To understand the structural layout and interdependencies of the platform components, refer to the architecture diagram. It gives a comprehensive view of the system design, making it easier for users and developers to grasp the platform's intricacies.
 
-![Architecture Diagram](https://github.com/bhanujggandhi/iot-platform-project/blob/main/documentation/artifacts/Architecture%20Diagram.jpg)
+![Architecture Diagram](./Architecture-Diagram-final.drawio.png)
 
 ## Demo Video
 
 Get a firsthand experience of the Distributed IoT Application Platform in action. Click the video below to watch the demo:
 
 <https://github.com/bhanujggandhi/iot-platform-project/assets/41260948/70dd75a6-11cc-42a9-814d-ee760bd8a3ef>
-
-## Future Scope
-
-- **Broader Integration**: Plan to connect with even more types of IoT devices for versatility.
-- **Smarter Analysis**: Upgrade data processing tools for clearer insights from the gathered data.
-- **Safety First**: Boost security to keep both users and their devices safe.
-- **Ease of Use**: Streamline user interfaces and workflows for a more user-friendly experience.
-- **Growing with Demand**: Prepare the platform to effortlessly handle increased device connections and data volume.
 
 ## Getting Started
 
@@ -241,16 +227,8 @@ Welcome to our IoT platform, designed to manage, process, and visualize data fro
 
   - [Download Kafka](https://kafka.apache.org/downloads)
   - Follow the installation guide specific to your operating system.
-
-- **ThingsBoard:** Integration of sensors and visualization relies on ThingsBoard.
-
-  - [Download ThingsBoard](https://thingsboard.io/download/)
-  - Follow the setup instructions.
-
-- **OneM2M:** Standard for Machine-to-Machine communications.
-  - Ensure your devices or sensors support OneM2M.
-  - Configure them to send data using MQTT to the platform.
-
+  - Start the Kafka server and create topics as needed.
+  
 ### 3. **Configuration**
 
 - **Application Configuration Files:**
